@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/v1/login")
 class AutenticacaoController(
-    private val authencationManager: AuthenticationManager,
-    private val tokenService: TokenService
+        private val authencationManager: AuthenticationManager,
+        private val tokenService: TokenService
 ) {
 
     @PostMapping

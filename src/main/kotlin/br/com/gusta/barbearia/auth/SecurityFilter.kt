@@ -21,6 +21,7 @@ class SecurityFilter(
         filterChain: FilterChain
     ) {
         val tokenJwt = recuperarToken(request)
+
         if (Objects.nonNull(tokenJwt)) {
             val subject = tokenService.getSubject(tokenJwt!!)
             val usuario = usuarioRepository.findById(subject!!).get()
