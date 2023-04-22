@@ -15,7 +15,6 @@ import org.springframework.context.annotation.Configuration
     info = Info(
         title = "barbearia",
         description = "Api para agendamento de horários",
-        version = "V1",
         contact = Contact(name = "gasfgrv", email = "gustavo_almeida11@hotmail.com", url = "https://github.com/gasfgrv")
     )
 )
@@ -25,7 +24,7 @@ class OpenApiConfig {
     @Bean
     fun logApi(): GroupedOpenApi? = GroupedOpenApi.builder()
         .group("api-v1")
-        .packagesToScan("com.gasfgrv.barbearia")
+        .packagesToScan("br.com.gusta.barbearia")
         .pathsToMatch("/**")
         .build()
 
