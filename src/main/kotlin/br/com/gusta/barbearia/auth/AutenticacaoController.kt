@@ -1,5 +1,6 @@
 package br.com.gusta.barbearia.auth
 
+import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/v1/login")
+@Tag(name = "Login")
 class AutenticacaoController(
         private val authencationManager: AuthenticationManager,
         private val tokenService: TokenService
