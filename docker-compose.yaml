@@ -13,6 +13,8 @@ services:
       POSTGRES_DB: barbearia
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
 
 networks:
   barbearia:
