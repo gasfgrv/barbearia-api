@@ -3,22 +3,22 @@ package br.com.gusta.barbearia.auth
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import java.util.Objects
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
+import java.util.*
 
 @Component
 class SecurityFilter(
-    private val usuarioRepository: UsuarioRepository,
-    private val tokenService: TokenService
+        private val usuarioRepository: UsuarioRepository,
+        private val tokenService: TokenService
 ) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
-        request: HttpServletRequest,
-        response: HttpServletResponse,
-        filterChain: FilterChain
+            request: HttpServletRequest,
+            response: HttpServletResponse,
+            filterChain: FilterChain
     ) {
         val tokenJwt = recuperarToken(request)
 
@@ -33,10 +33,10 @@ class SecurityFilter(
     }
 
     private fun recuperarToken(request: HttpServletRequest): String? {
-        val authorizationHeader = request.getHeader("Authorization")
+        var authorizationHeader = request.getHeader("Authorization")
 
         if (Objects.nonNull(authorizationHeader)) {
-            authorizationHeader.replace("Bearer ", "")
+            authorizationHeader = authorizationHeader.replace("Bearer ", "")
         }
 
         return authorizationHeader
