@@ -1,4 +1,4 @@
-ALTER TABLE
+alter table
   "public"."cliente"
-ADD
-  CONSTRAINT "cliente_fkey" FOREIGN KEY ("login") REFERENCES "public"."usuario" ("login");
+add
+  constraint "cliente_fkey" foreign key ("login") references "public"."usuario" ("login");

@@ -1,4 +1,2 @@
-ALTER TABLE
-  "public"."agendamento"
-DROP
-  COLUMN "servicos";
+alter table
+  "public"."agendamento" drop column "servicos";

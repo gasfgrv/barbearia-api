@@ -1,7 +1,6 @@
-INSERT
-	INTO
-	"public"."perfil" ("id",
-	"nome")
-VALUES
-  ('1',
-'ADMIN');
+insert into
+  "public"."perfil" ("id", "nome")
+values
+  ('1', 'ADMIN'),
+  ('2', 'CLIENTE'),
+  ('3', 'BARBEIRO');

@@ -1,8 +1,8 @@
-CREATE TABLE "public"."agendamento" (
-  "id" BIGINT NOT NULL,
-  "cliente" BIGINT NOT NULL,
-  "servicos" VARCHAR(255) NOT NULL,
-  "barbeiro" BIGINT NOT NULL,
-  "horario" TIMESTAMP NOT NULL,
-  CONSTRAINT "agendamento_pkey" PRIMARY KEY ("id")
+create table "public"."agendamento" (
+  "id" uuid not null,
+  "cliente" uuid not null,
+  "servicos" varchar(255) not null,
+  "barbeiro" uuid not null,
+  "horario" timestamp not null,
+  constraint "agendamento_pkey" primary key ("id")
 );

@@ -1,5 +1,5 @@
-CREATE TABLE "public"."usuario" (
-  "login" varchar(255) NOT NULL,
-  "senha" varchar(255) NOT NULL,
-  CONSTRAINT "usuario_pkey" PRIMARY KEY ("login")
+create table "public"."usuario" (
+  "login" varchar(255) not null,
+  "senha" varchar(255) not null,
+  constraint "usuario_pkey" primary key ("login")
 )

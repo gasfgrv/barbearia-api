@@ -1,4 +1,4 @@
-ALTER TABLE
+alter table
   "public"."usuario"
-ADD
-  COLUMN "perfil_id" integer NOT NULL;
+add
+  column "perfil" integer not null;

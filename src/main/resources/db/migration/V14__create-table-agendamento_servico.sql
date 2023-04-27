@@ -1,4 +1,4 @@
-CREATE TABLE "public"."agendamento_servico" (
-  "agendamento" BIGINT NOT NULL,
-  "servico" BIGINT NOT NULL
+create table "public"."agendamento_servico" (
+  "agendamento" uuid not null,
+  "servico" bigint not null
 );

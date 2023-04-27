@@ -1,5 +1,4 @@
-
-ALTER TABLE
+alter table
   "public"."agendamento"
-ADD
-  CONSTRAINT "barbeiros_fkey" FOREIGN KEY ("barbeiro") REFERENCES "public"."barbeiro" ("id")
+add
+  constraint "barbeiros_fkey" foreign key ("barbeiro") references "public"."barbeiro" ("id")

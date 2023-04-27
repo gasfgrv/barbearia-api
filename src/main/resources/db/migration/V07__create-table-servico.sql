@@ -1,9 +1,9 @@
-CREATE TABLE "public"."servico" (
-  "id" BIGINT NOT NULL,
-  "nome" VARCHAR(255) NOT NULL,
-  "descricao" varchar(255) NOT NULL,
-  "preco" MONEY NOT NULL,
-  "duracacao" INTEGER NOT NULL,
-  "ativo" BOOLEAN NOT NULL,
-  CONSTRAINT "servico_pkey" PRIMARY KEY ("id")
+create table "public"."servico" (
+  "id" bigint not null,
+  "nome" varchar(255) not null,
+  "descricao" varchar(255) not null,
+  "preco" money not null,
+  "duracacao" integer not null,
+  "ativo" boolean not null,
+  constraint "servico_pkey" primary key ("id")
 )
