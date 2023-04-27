@@ -16,7 +16,7 @@ data class Usuario(
     private val login: String,
     private val senha: String,
     @OneToOne(cascade = [CascadeType.ALL])
-    @JoinColumn(name = "perfil_id", referencedColumnName = "id")
+    @JoinColumn(name = "perfil", referencedColumnName = "id")
     private val perfil: Perfil
 ) : UserDetails {
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> = mutableListOf(perfil)
