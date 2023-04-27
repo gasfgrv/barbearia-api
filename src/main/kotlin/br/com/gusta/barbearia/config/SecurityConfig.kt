@@ -25,6 +25,8 @@ class SecurityConfig(private val securityFilter: SecurityFilter) {
             .sessionManagement { session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .authorizeHttpRequests { url ->
                 url.requestMatchers(HttpMethod.POST, "/v1/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/v1/clientes/novo").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/v1/barbeiros/novo").permitAll()
                         .requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/v3/api-docs*/**").permitAll()
                         .anyRequest().authenticated()
