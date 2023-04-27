@@ -3,10 +3,11 @@ package br.com.gusta.barbearia.agendamento
 import br.com.gusta.barbearia.barbeiro.BarbeiroService
 import br.com.gusta.barbearia.cliente.ClienteService
 import br.com.gusta.barbearia.servico.ServicoService
+import java.time.LocalDateTime
+import java.util.UUID
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.*
 
 @Service
 class AgendamentoService @Autowired constructor(
@@ -35,7 +36,12 @@ class AgendamentoService @Autowired constructor(
     }
 
     fun consultarAgendamento(id: UUID): Any {
-        return agendamentoRepository.findById(id).orElseThrow { RuntimeException() }
+        return agendamentoRepository.findById(id)
+            .orElseThrow { RuntimeException() }
+    }
+
+    fun existeAgendamentoNoMesmoHorario(horario: LocalDateTime, barbeiro: UUID): Boolean {
+        return agendamentoRepository.existsAgendamentoByHorarioAndBarbeiroId(horario, barbeiro)
     }
 //    concluirAgendamento
 //    cancelarAgendamento

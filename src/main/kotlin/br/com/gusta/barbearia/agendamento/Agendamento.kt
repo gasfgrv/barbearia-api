@@ -3,9 +3,21 @@ package br.com.gusta.barbearia.agendamento
 import br.com.gusta.barbearia.barbeiro.Barbeiro
 import br.com.gusta.barbearia.cliente.Cliente
 import br.com.gusta.barbearia.servico.Servico
-import jakarta.persistence.*
+import jakarta.persistence.CascadeType
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.JoinTable
+import jakarta.persistence.ManyToMany
+import jakarta.persistence.OneToOne
+import jakarta.persistence.Table
 import java.time.LocalDateTime
-import java.util.*
+import java.util.UUID
 
 @Entity
 @Table(name = "agendamento")

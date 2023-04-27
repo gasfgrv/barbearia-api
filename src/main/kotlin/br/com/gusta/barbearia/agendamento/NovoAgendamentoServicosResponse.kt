@@ -2,10 +2,10 @@ package br.com.gusta.barbearia.agendamento
 
 import br.com.gusta.barbearia.servico.Servico
 import br.com.gusta.barbearia.servico.ServicoController
+import java.math.BigDecimal
 import org.springframework.hateoas.RepresentationModel
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn
-import java.math.BigDecimal
 
 data class NovoAgendamentoServicosResponse(
     val nome: String,
