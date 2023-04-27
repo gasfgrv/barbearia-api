@@ -1,6 +1,9 @@
-insert into
-  "public"."usuario" ("login", "perfil_id", "senha")
-values
+INSERT
+	INTO
+	"public"."usuario" ("login",
+	"perfil_id",
+	"senha")
+VALUES
   (
     'admin@barbearia.com',
     '1',
