@@ -3,6 +3,7 @@ package br.com.gusta.barbearia.agendamento
 import br.com.gusta.barbearia.barbeiro.BarbeiroService
 import br.com.gusta.barbearia.cliente.ClienteService
 import br.com.gusta.barbearia.servico.ServicoService
+import br.com.gusta.barbearia.utils.DataHoraUtils
 import java.time.LocalDateTime
 import java.util.UUID
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,32 +20,51 @@ class AgendamentoService @Autowired constructor(
 
     @Transactional
     fun novoAgendamento(novoAgendamento: NovoAgendamentoForm): Agendamento {
-        val cliente = clienteService.buscarCliente(novoAgendamento.cliente)
-        val barbeiro = barbeiroService.buscarBarbeiro(novoAgendamento.barbeiro)
-        val servicos = novoAgendamento.servicos.map(servicoService::selecionarServico)
+        if (verificaSePodeAgendar(novoAgendamento)) {
+            throw AgendamentoExistenteException(DataHoraUtils.formatar(novoAgendamento.horario))
+        }
 
         val agendamento = Agendamento(
-            cliente = cliente,
-            barbeiro = barbeiro,
+            cliente = clienteService.buscarCliente(novoAgendamento.cliente),
+            barbeiro = barbeiroService.buscarBarbeiro(novoAgendamento.barbeiro),
             horario = novoAgendamento.horario
         )
 
-        agendamento.adicionarServicos(servicos)
+        agendamento.adicionarServicos(
+            novoAgendamento.servicos.map(servicoService::selecionarServico)
+        )
         agendamento.agendar()
 
         return agendamentoRepository.save(agendamento)
     }
 
-    fun consultarAgendamento(id: UUID): Any {
+    fun consultarDadosAgendamento(id: UUID): Agendamento {
         return agendamentoRepository.findById(id)
-            .orElseThrow { RuntimeException() }
+            .orElseThrow { AgendamentoNaoEncontradoException() }
     }
 
-    fun existeAgendamentoNoMesmoHorario(horario: LocalDateTime, barbeiro: UUID): Boolean {
-        return agendamentoRepository.existsAgendamentoByHorarioAndBarbeiroId(horario, barbeiro)
+    fun cancelarAgendamento(id: UUID) {
+        agendamentoRepository.findById(id)
+            .ifPresent { agendamento ->
+                agendamento.cancelarAgendamento()
+                agendamentoRepository.save(agendamento)
+            }
     }
-//    concluirAgendamento
-//    cancelarAgendamento
-//    alterarAgendamento
+
+    fun concluirAgendamento(id: UUID) {
+        agendamentoRepository.findById(id)
+            .ifPresent { agendamento ->
+                agendamento.concluirAgendamento()
+                agendamentoRepository.save(agendamento)
+            }
+    }
+
+    //    alterarAgendamento
 //    listarAgendamentos
+    private fun existeAgendamentoParaOMesmoHorario(horario: LocalDateTime, barbeiro: UUID): Boolean =
+        agendamentoRepository.existsAgendamentoByHorarioAndBarbeiroId(horario, barbeiro)
+
+    private fun verificaSePodeAgendar(novoAgendamento: NovoAgendamentoForm): Boolean =
+        existeAgendamentoParaOMesmoHorario(novoAgendamento.horario, novoAgendamento.barbeiro) ||
+                barbeiroService.barbeiroVaiEstarOcupado(novoAgendamento.horario, novoAgendamento.servicos)
 }

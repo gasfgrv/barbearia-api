@@ -5,8 +5,6 @@ import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import java.util.UUID
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -22,27 +20,35 @@ class AgendamentoController @Autowired constructor(private val agendamentoServic
 
     @GetMapping("/{id}")
     @SecurityRequirement(name = "bearerAuth")
-    fun consultarAgendamento(@PathVariable id: UUID?): Any {
-        val agendamento = agendamentoService.consultarAgendamento(id!!)
-        return ResponseEntity.ok().body(agendamento)
+    fun consultarAgendamento(@PathVariable id: UUID): ResponseEntity<AgendamentoDetalhesResponse> {
+        return ResponseEntity.ok().body(
+            AgendamentoDetalhesResponse.paraResposta(
+                agendamentoService.consultarDadosAgendamento(id)
+            )
+        )
+    }
+
+    @GetMapping("/{id}/cancelar")
+    @SecurityRequirement(name = "bearerAuth")
+    fun cancelarAgendamento(@PathVariable id: UUID): ResponseEntity<Unit> {
+        agendamentoService.cancelarAgendamento(id)
+        return ResponseEntity.noContent().build()
+    }
+
+    @GetMapping("/{id}/concluir")
+    @SecurityRequirement(name = "bearerAuth")
+    fun concluirAgendamento(@PathVariable id: UUID): ResponseEntity<Unit> {
+        agendamentoService.concluirAgendamento(id)
+        return ResponseEntity.noContent().build()
     }
 
     @PostMapping("/novo")
     @SecurityRequirement(name = "bearerAuth")
     fun novoAgendamento(@RequestBody @Valid form: NovoAgendamentoForm): ResponseEntity<NovoAgendamentoResponse> {
-        if (agendamentoService.existeAgendamentoNoMesmoHorario(form.horario, form.barbeiro)) {
-            throw RuntimeException("Já existe agendamento para esse horário!")
-        }
-
-        val agendamento = agendamentoService.novoAgendamento(form)
-
-        val resposta = NovoAgendamentoResponse.paraResposta(agendamento).add(
-            linkTo(methodOn(AgendamentoController::class.java).consultarAgendamento(agendamento.id)).withSelfRel()
-        )
-
-        val uri = resposta.getLink("self").get().toUri()
-
-        return ResponseEntity.created(uri).body(resposta);
+        val agendamento = NovoAgendamentoResponse.paraResposta(agendamentoService.novoAgendamento(form))
+        return ResponseEntity
+            .created(agendamento.getLink("self").get().toUri())
+            .body(agendamento);
     }
 
 }
