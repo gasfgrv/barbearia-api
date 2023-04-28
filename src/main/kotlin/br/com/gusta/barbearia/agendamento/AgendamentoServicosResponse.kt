@@ -15,17 +15,24 @@ data class NovoAgendamentoServicosResponse(
 
     companion object Mapper {
         fun paraResposta(servico: Servico): NovoAgendamentoServicosResponse {
-            val resposta = NovoAgendamentoServicosResponse(
+            val controllerClass = ServicoController::class.java
+            return NovoAgendamentoServicosResponse(
                 servico.nome,
                 servico.preco,
                 servico.duracacao
+            ).add(
+                linkTo(
+                    methodOn(
+                        controllerClass
+                    ).DetalharServico(servico.id)
+                ).withSelfRel()
+            ).add(
+                linkTo(
+                    methodOn(
+                        controllerClass
+                    ).listarServicos()
+                ).withRel("servicos")
             )
-
-            val controllerClass = ServicoController::class.java
-            resposta.add(linkTo(methodOn(controllerClass).DetalharServico(servico.id)).withSelfRel())
-            resposta.add(linkTo(methodOn(controllerClass).listarServicos()).withRel("todos servicos"))
-
-            return resposta
         }
     }
 
