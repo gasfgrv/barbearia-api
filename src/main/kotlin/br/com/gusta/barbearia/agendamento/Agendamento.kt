@@ -64,7 +64,10 @@ data class Agendamento(
 
     fun cancelarAgendamento() {
         if (Status.AGENDADO != this.status) {
-            throw RuntimeException()
+            throw AgendamentoException(
+                "Não se pode cancelar um agendamento que já esteja concluído ou cancelado",
+                this.status!!.name
+            )
         }
 
         this.status = Status.CANCELADO
@@ -72,7 +75,10 @@ data class Agendamento(
 
     fun concluirAgendamento() {
         if (Status.AGENDADO != this.status) {
-            throw RuntimeException()
+            throw AgendamentoException(
+                "Não se pode concluir um agendamento que já esteja concluído ou cancelado",
+                this.status!!.name
+            )
         }
 
         this.status = Status.CONCLUIDO
