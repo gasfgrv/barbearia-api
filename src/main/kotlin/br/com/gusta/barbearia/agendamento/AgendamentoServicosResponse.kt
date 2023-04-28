@@ -7,16 +7,16 @@ import org.springframework.hateoas.RepresentationModel
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn
 
-data class NovoAgendamentoServicosResponse(
+data class AgendamentoServicosResponse(
     val nome: String,
     val preco: BigDecimal,
     val duracacao: Int
-) : RepresentationModel<NovoAgendamentoServicosResponse>() {
+) : RepresentationModel<AgendamentoServicosResponse>() {
 
     companion object Mapper {
-        fun paraResposta(servico: Servico): NovoAgendamentoServicosResponse {
+        fun paraResposta(servico: Servico): AgendamentoServicosResponse {
             val controllerClass = ServicoController::class.java
-            return NovoAgendamentoServicosResponse(
+            return AgendamentoServicosResponse(
                 servico.nome,
                 servico.preco,
                 servico.duracacao
