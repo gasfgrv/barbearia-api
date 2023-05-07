@@ -14,6 +14,7 @@ import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.JoinTable
 import jakarta.persistence.ManyToMany
+import jakarta.persistence.ManyToOne
 import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
 import java.time.LocalDateTime
@@ -39,7 +40,7 @@ data class Agendamento(
     )
     private val servicos: MutableList<Servico> = ArrayList(),
 
-    @OneToOne(cascade = [CascadeType.ALL])
+    @ManyToOne
     @JoinColumn(name = "barbeiro", referencedColumnName = "id")
     val barbeiro: Barbeiro,
 
@@ -82,6 +83,15 @@ data class Agendamento(
         }
 
         this.status = Status.CONCLUIDO
+    }
+
+    override fun toString(): String {
+        return "Agendamento(id=$id, " +
+                "cliente=${cliente.id}, " +
+                "servicos=$servicos, " +
+                "barbeiro=${barbeiro.id}, " +
+                "horario=$horario, " +
+                "status=$status)"
     }
 
 }

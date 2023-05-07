@@ -66,5 +66,5 @@ class AgendamentoService @Autowired constructor(
 
     private fun verificaSePodeAgendar(novoAgendamento: NovoAgendamentoForm): Boolean =
         existeAgendamentoParaOMesmoHorario(novoAgendamento.horario, novoAgendamento.barbeiro) ||
-                barbeiroService.barbeiroVaiEstarOcupado(novoAgendamento.horario, novoAgendamento.servicos)
+        barbeiroService.verificaSeBarbeiroVaiEstarOcupadoNoHorario(novoAgendamento.horario, novoAgendamento.barbeiro)
 }

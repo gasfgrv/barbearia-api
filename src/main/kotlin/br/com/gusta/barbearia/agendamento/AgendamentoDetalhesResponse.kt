@@ -28,6 +28,18 @@ data class AgendamentoDetalhesResponse(
                         AgendamentoController::class.java
                     ).consultarAgendamento(agendamento.id!!)
                 ).withSelfRel()
+            ).add(
+                linkTo(
+                    methodOn(
+                        AgendamentoController::class.java
+                    ).concluirAgendamento(agendamento.id!!)
+                ).withRel("concluir")
+            ).add(
+                linkTo(
+                    methodOn(
+                        AgendamentoController::class.java
+                    ).cancelarAgendamento(agendamento.id!!)
+                ).withRel("cancelar")
             )
         }
     }
