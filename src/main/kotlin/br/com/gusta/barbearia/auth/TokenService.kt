@@ -3,10 +3,7 @@ package br.com.gusta.barbearia.auth
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import java.time.Instant
-import java.time.LocalDateTime
 import java.time.OffsetDateTime
-import java.time.ZoneId
-import java.time.ZoneOffset
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
@@ -16,7 +13,7 @@ class TokenService(
     private val secret: String
 ) {
 
-    fun gerarToken(usuario: Usuario): String? {
+    fun gerarToken(usuario: Usuario): String {
         return JWT.create()
             .withIssuer("barbearia")
             .withSubject(usuario.username)
@@ -24,7 +21,7 @@ class TokenService(
             .sign(getAlgoritmo(secret))
     }
 
-    fun getSubject(token: String): String? {
+    fun getSubject(token: String): String {
         return JWT.require(getAlgoritmo(secret))
             .withIssuer("barbearia")
             .build()
@@ -32,8 +29,8 @@ class TokenService(
             .subject
     }
 
-    private fun getAlgoritmo(secret: String): Algorithm? {
-        return Algorithm.HMAC256(secret);
+    private fun getAlgoritmo(secret: String): Algorithm {
+        return Algorithm.HMAC256(secret)
     }
 
     private fun getExpiracao(): Instant {

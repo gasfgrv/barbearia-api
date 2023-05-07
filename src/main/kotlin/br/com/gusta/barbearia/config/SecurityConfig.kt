@@ -21,22 +21,23 @@ class SecurityConfig(private val securityFilter: SecurityFilter) {
 
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain = http
-            .csrf { csrf -> csrf.disable() }
-            .sessionManagement { session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
-            .authorizeHttpRequests { url ->
-                url.requestMatchers(HttpMethod.POST, "/v1/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/v1/clientes/novo").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/v1/barbeiros/novo").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/v3/api-docs*/**").permitAll()
-                        .anyRequest().authenticated()
-            }
-            .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter::class.java)
-            .build()
+        .csrf { csrf -> csrf.disable() }
+        .sessionManagement { session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
+        .authorizeHttpRequests { url ->
+            url.requestMatchers(HttpMethod.POST, "/v1/login").permitAll()
+                .requestMatchers(HttpMethod.POST, "/v1/clientes/novo").permitAll()
+                .requestMatchers(HttpMethod.POST, "/v1/barbeiros/novo").permitAll()
+                .requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/v3/api-docs*/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/v1/agendamentos/novo").hasAuthority("CLIENTE")
+                .anyRequest().authenticated()
+        }
+        .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter::class.java)
+        .build()
 
     @Bean
     fun authenticationManager(configuration: AuthenticationConfiguration): AuthenticationManager =
-            configuration.authenticationManager
+        configuration.authenticationManager
 
     @Bean
     fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
