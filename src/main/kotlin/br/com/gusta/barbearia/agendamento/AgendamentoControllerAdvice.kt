@@ -131,7 +131,7 @@ class AgendamentoControllerAdvice : ResponseEntityExceptionHandler() {
         return Problem.create()
             .withTitle(StringUtils.converterParaSentenceCase(ex::class.simpleName!!))
             .withDetail(ex.message)
-            .withInstance(URI((request as ServletWebRequest).request.requestURI.toString()))
+            .withInstance(URI.create((request as ServletWebRequest).request.requestURI.toString()))
             .withStatus(status)
             .withProperties { properties ->
                 properties["timestamp"] = OffsetDateTime.now()
