@@ -20,7 +20,7 @@ class AgendamentoService @Autowired constructor(
 
     @Transactional
     fun novoAgendamento(novoAgendamento: NovoAgendamentoForm): Agendamento {
-        if (verificaSePodeAgendar(novoAgendamento)) {
+        if (verificaSePodeAgendar(novoAgendamento.horario, novoAgendamento.barbeiro)) {
             throw AgendamentoExistenteException(DataHoraUtils.formatar(novoAgendamento.horario))
         }
 
@@ -59,12 +59,24 @@ class AgendamentoService @Autowired constructor(
             }
     }
 
-    //    alterarAgendamento
-//    listarAgendamentos
-    private fun existeAgendamentoParaOMesmoHorario(horario: LocalDateTime, barbeiro: UUID): Boolean =
-        agendamentoRepository.existsAgendamentoByHorarioAndBarbeiroId(horario, barbeiro)
+    fun alterarAgendamento(alterarAgendamento: AlterarAgendamentoForm): Agendamento {
+        val agendamento = agendamentoRepository.findById(alterarAgendamento.agendamento)
+            .orElseThrow(::AgendamentoNaoEncontradoException)
+        agendamento.horario = alterarAgendamento.novoHorario
 
-    private fun verificaSePodeAgendar(novoAgendamento: NovoAgendamentoForm): Boolean =
-        existeAgendamentoParaOMesmoHorario(novoAgendamento.horario, novoAgendamento.barbeiro) ||
-        barbeiroService.verificaSeBarbeiroVaiEstarOcupadoNoHorario(novoAgendamento.horario, novoAgendamento.barbeiro)
+        if (verificaSePodeAgendar(agendamento.horario, agendamento.barbeiro.id!!)) {
+            throw AgendamentoExistenteException(DataHoraUtils.formatar(agendamento.horario))
+        }
+
+        return agendamentoRepository.save(agendamento)
+    }
+
+    private fun existeAgendamentoParaOMesmoHorario(horario: LocalDateTime, barbeiro: UUID): Boolean {
+        return agendamentoRepository.existsAgendamentoByHorarioAndBarbeiroId(horario, barbeiro)
+    }
+
+    private fun verificaSePodeAgendar(horario: LocalDateTime, barbeiroId: UUID): Boolean {
+        return existeAgendamentoParaOMesmoHorario(horario, barbeiroId) ||
+                barbeiroService.verificaSeBarbeiroVaiEstarOcupadoNoHorario(horario, barbeiroId)
+    }
 }

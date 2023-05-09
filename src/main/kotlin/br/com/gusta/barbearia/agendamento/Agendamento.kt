@@ -45,7 +45,7 @@ data class Agendamento(
     val barbeiro: Barbeiro,
 
     @Column(name = "horario")
-    val horario: LocalDateTime,
+    var horario: LocalDateTime,
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")

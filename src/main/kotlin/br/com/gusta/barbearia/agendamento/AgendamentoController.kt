@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -44,11 +45,21 @@ class AgendamentoController @Autowired constructor(private val agendamentoServic
 
     @PostMapping("/novo")
     @SecurityRequirement(name = "bearerAuth")
-    fun novoAgendamento(@RequestBody @Valid form: NovoAgendamentoForm): ResponseEntity<NovoAgendamentoResponse> {
-        val agendamento = NovoAgendamentoResponse.paraResposta(agendamentoService.novoAgendamento(form))
+    fun novoAgendamento(@RequestBody @Valid form: NovoAgendamentoForm): ResponseEntity<AgendamentoResponse> {
+        val agendamento = AgendamentoResponse.paraResposta(agendamentoService.novoAgendamento(form))
         return ResponseEntity
             .created(agendamento.getLink("self").get().toUri())
             .body(agendamento);
+    }
+
+    @PutMapping("/{id}/remarcar")
+    @SecurityRequirement(name = "bearerAuth")
+    fun alterarAgendamento(
+        @PathVariable id: UUID,
+        @RequestBody @Valid form: AlterarAgendamentoForm
+    ): ResponseEntity<AgendamentoResponse> {
+        val agendamento = AgendamentoResponse.paraResposta(agendamentoService.alterarAgendamento(form))
+        return ResponseEntity.ok(agendamento)
     }
 
 }
