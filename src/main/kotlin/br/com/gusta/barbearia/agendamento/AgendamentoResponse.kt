@@ -5,15 +5,15 @@ import org.springframework.hateoas.RepresentationModel
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn
 
-data class NovoAgendamentoResponse(
+data class AgendamentoResponse(
     val servicos: List<AgendamentoServicosResponse>,
     val barbeiro: String,
     val horario: LocalDateTime
-) : RepresentationModel<NovoAgendamentoResponse>() {
+) : RepresentationModel<AgendamentoResponse>() {
 
     companion object Mapper {
-        fun paraResposta(agendamento: Agendamento): NovoAgendamentoResponse {
-            return NovoAgendamentoResponse(
+        fun paraResposta(agendamento: Agendamento): AgendamentoResponse {
+            return AgendamentoResponse(
                 agendamento.obterServicos().map(AgendamentoServicosResponse.Mapper::paraResposta),
                 agendamento.barbeiro.nome,
                 agendamento.horario
