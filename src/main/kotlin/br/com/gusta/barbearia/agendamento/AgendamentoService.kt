@@ -76,11 +76,11 @@ class AgendamentoService @Autowired constructor(
     }
 
     private fun existeAgendamentoParaOMesmoHorario(horario: LocalDateTime, barbeiro: UUID): Boolean {
-        return agendamentoRepository.existsAgendamentoByHorarioAndBarbeiroId(horario, barbeiro)
+        return agendamentoRepository.existeAgendamentoNoHorarioParaBarbeiro(horario, barbeiro)
     }
 
     private fun verificaSePodeAgendar(horario: LocalDateTime, barbeiroId: UUID): Boolean {
-        return existeAgendamentoParaOMesmoHorario(horario, barbeiroId) ||
+        return existeAgendamentoParaOMesmoHorario(horario, barbeiroId) &&
                 barbeiroService.verificaSeBarbeiroVaiEstarOcupadoNoHorario(horario, barbeiroId)
     }
 }
