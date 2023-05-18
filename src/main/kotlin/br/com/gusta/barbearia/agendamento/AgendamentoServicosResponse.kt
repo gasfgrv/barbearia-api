@@ -14,26 +14,19 @@ data class AgendamentoServicosResponse(
 ) : RepresentationModel<AgendamentoServicosResponse>() {
 
     companion object Mapper {
+
         fun paraResposta(servico: Servico): AgendamentoServicosResponse {
-            val controllerClass = ServicoController::class.java
-            return AgendamentoServicosResponse(
+            val resposta = AgendamentoServicosResponse(
                     servico.nome,
                     servico.preco,
                     servico.duracacao
-            ).add(
-                    linkTo(
-                            methodOn(
-                                    controllerClass
-                            ).DetalharServico(servico.id)
-                    ).withSelfRel()
-            ).add(
-                    linkTo(
-                            methodOn(
-                                    controllerClass
-                            ).listarServicos()
-                    ).withRel("servicos")
             )
+
+            resposta.add(linkTo(methodOn(ServicoController::class.java).DetalharServico(servico.id)).withSelfRel())
+
+            return resposta
         }
+
     }
 
 }

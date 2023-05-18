@@ -51,8 +51,8 @@ class AgendamentoController @Autowired constructor(private val agendamentoServic
 
     @PutMapping("/remarcar")
     @SecurityRequirement(name = "bearerAuth")
-    fun alterarAgendamento(@RequestBody @Valid form: AlterarAgendamentoForm): ResponseEntity<AgendamentoResponse> {
-        val agendamento = AgendamentoResponse.paraResposta(agendamentoService.alterarAgendamento(form))
+    fun alterarAgendamento(@RequestBody @Valid form: AlterarAgendamentoForm?): ResponseEntity<AgendamentoResponse> {
+        val agendamento = AgendamentoResponse.paraResposta(agendamentoService.alterarAgendamento(form!!))
         return ResponseEntity.ok(agendamento)
     }
 

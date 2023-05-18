@@ -13,29 +13,16 @@ data class AgendamentoResponse(
 
     companion object Mapper {
         fun paraResposta(agendamento: Agendamento): AgendamentoResponse {
-            return AgendamentoResponse(
+            val resposta = AgendamentoResponse(
                     agendamento.obterServicos().map(AgendamentoServicosResponse.Mapper::paraResposta),
                     agendamento.barbeiro.nome,
                     agendamento.horario
-            ).add(
-                    linkTo(
-                            methodOn(
-                                    AgendamentoController::class.java
-                            ).consultarAgendamento(agendamento.id!!)
-                    ).withSelfRel()
-            ).add(
-                    linkTo(
-                            methodOn(
-                                    AgendamentoController::class.java
-                            ).concluirAgendamento(agendamento.id!!)
-                    ).withRel("concluir")
-            ).add(
-                    linkTo(
-                            methodOn(
-                                    AgendamentoController::class.java
-                            ).cancelarAgendamento(agendamento.id!!)
-                    ).withRel("cancelar")
             )
+
+            resposta.add(linkTo(methodOn(AgendamentoController::class.java).consultarAgendamento(agendamento.id!!))
+                    .withSelfRel())
+
+            return resposta
         }
     }
 
