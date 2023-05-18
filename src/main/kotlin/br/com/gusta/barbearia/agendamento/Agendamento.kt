@@ -38,7 +38,7 @@ data class Agendamento(
                 joinColumns = [JoinColumn(name = "agendamento")],
                 inverseJoinColumns = [JoinColumn(name = "servico")]
         )
-        private val servicos: MutableList<Servico> = ArrayList(),
+        private val servicos: MutableSet<Servico> = HashSet(),
 
         @ManyToOne
         @JoinColumn(name = "barbeiro", referencedColumnName = "id")
