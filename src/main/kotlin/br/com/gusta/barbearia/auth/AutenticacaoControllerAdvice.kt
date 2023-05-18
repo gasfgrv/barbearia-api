@@ -2,8 +2,8 @@ package br.com.gusta.barbearia.auth
 
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
-
 import io.swagger.v3.oas.annotations.responses.ApiResponse
+import java.net.URI
 import org.springframework.hateoas.mediatype.problem.Problem
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
@@ -11,11 +11,9 @@ import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.AuthenticationException
 import org.springframework.web.bind.annotation.ExceptionHandler
-
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.context.request.WebRequest
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
-import java.net.URI
 
 @RestControllerAdvice
 class AutenticacaoControllerAdvice : ResponseEntityExceptionHandler() {
@@ -24,7 +22,10 @@ class AutenticacaoControllerAdvice : ResponseEntityExceptionHandler() {
     @ApiResponse(responseCode = "401", content = [
         Content(mediaType = "application/problem+json", schema = Schema(implementation = Problem::class))
     ])
-    fun handleAuthenticationException(exception: AuthenticationException, request: WebRequest): ResponseEntity<Any>? {
+    fun handleAuthenticationException(
+            exception: AuthenticationException,
+            request: WebRequest
+    ): ResponseEntity<Any>? {
         val status = HttpStatus.UNAUTHORIZED
 
         val headers = HttpHeaders()

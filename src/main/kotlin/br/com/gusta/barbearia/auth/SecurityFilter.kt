@@ -3,11 +3,11 @@ package br.com.gusta.barbearia.auth
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import java.util.Objects
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
-import java.util.*
 
 @Component
 class SecurityFilter(
@@ -24,7 +24,7 @@ class SecurityFilter(
 
         if (Objects.nonNull(tokenJwt)) {
             val subject = tokenService.getSubject(tokenJwt!!)
-            val usuario = usuarioRepository.findById(subject!!).get()
+            val usuario = usuarioRepository.findById(subject).get()
             val authenticationToken = UsernamePasswordAuthenticationToken(usuario, null, usuario.authorities)
             SecurityContextHolder.getContext().authentication = authenticationToken
         }

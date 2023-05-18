@@ -10,7 +10,7 @@ class UsuarioService(private val usuarioRepository: UsuarioRepository) : UserDet
 
     override fun loadUserByUsername(username: String?): UserDetails {
         return usuarioRepository.findById(username!!)
-            .orElseThrow { throw UsernameNotFoundException("Usuario não encontrado") }
+                .orElseThrow { throw UsernameNotFoundException("Usuario não encontrado") }
     }
 
 }

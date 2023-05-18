@@ -10,10 +10,10 @@ import org.springframework.security.core.GrantedAuthority
 @Entity
 @Table(name = "perfil")
 data class Perfil(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private val id: Long,
-    private val nome: String
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private val id: Long,
+        private val nome: String
 ) : GrantedAuthority {
     override fun getAuthority(): String = nome
 }
