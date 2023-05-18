@@ -8,30 +8,30 @@ import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn
 
 data class AgendamentoServicosResponse(
-    val nome: String,
-    val preco: BigDecimal,
-    val duracacao: Int
+        val nome: String,
+        val preco: BigDecimal,
+        val duracacao: Int
 ) : RepresentationModel<AgendamentoServicosResponse>() {
 
     companion object Mapper {
         fun paraResposta(servico: Servico): AgendamentoServicosResponse {
             val controllerClass = ServicoController::class.java
             return AgendamentoServicosResponse(
-                servico.nome,
-                servico.preco,
-                servico.duracacao
+                    servico.nome,
+                    servico.preco,
+                    servico.duracacao
             ).add(
-                linkTo(
-                    methodOn(
-                        controllerClass
-                    ).DetalharServico(servico.id)
-                ).withSelfRel()
+                    linkTo(
+                            methodOn(
+                                    controllerClass
+                            ).DetalharServico(servico.id)
+                    ).withSelfRel()
             ).add(
-                linkTo(
-                    methodOn(
-                        controllerClass
-                    ).listarServicos()
-                ).withRel("servicos")
+                    linkTo(
+                            methodOn(
+                                    controllerClass
+                            ).listarServicos()
+                    ).withRel("servicos")
             )
         }
     }

@@ -7,39 +7,39 @@ import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn
 
 data class AgendamentoDetalhesResponse(
-    val cliente: String,
-    val servicos: List<AgendamentoServicosResponse>,
-    val barbeiro: String,
-    val horario: String,
-    val status: String
+        val cliente: String,
+        val servicos: List<AgendamentoServicosResponse>,
+        val barbeiro: String,
+        val horario: String,
+        val status: String
 ) : RepresentationModel<AgendamentoDetalhesResponse>() {
 
     companion object Mapper {
         fun paraResposta(agendamento: Agendamento): AgendamentoDetalhesResponse {
             return AgendamentoDetalhesResponse(
-                agendamento.cliente.nome,
-                agendamento.obterServicos().map(AgendamentoServicosResponse.Mapper::paraResposta),
-                agendamento.barbeiro.nome,
-                DataHoraUtils.formatar(agendamento.horario),
-                StringUtils.capitalize(agendamento.status.toString())
+                    agendamento.cliente.nome,
+                    agendamento.obterServicos().map(AgendamentoServicosResponse.Mapper::paraResposta),
+                    agendamento.barbeiro.nome,
+                    DataHoraUtils.formatar(agendamento.horario),
+                    StringUtils.capitalize(agendamento.status.toString())
             ).add(
-                linkTo(
-                    methodOn(
-                        AgendamentoController::class.java
-                    ).consultarAgendamento(agendamento.id!!)
-                ).withSelfRel()
+                    linkTo(
+                            methodOn(
+                                    AgendamentoController::class.java
+                            ).consultarAgendamento(agendamento.id!!)
+                    ).withSelfRel()
             ).add(
-                linkTo(
-                    methodOn(
-                        AgendamentoController::class.java
-                    ).concluirAgendamento(agendamento.id!!)
-                ).withRel("concluir")
+                    linkTo(
+                            methodOn(
+                                    AgendamentoController::class.java
+                            ).concluirAgendamento(agendamento.id!!)
+                    ).withRel("concluir")
             ).add(
-                linkTo(
-                    methodOn(
-                        AgendamentoController::class.java
-                    ).cancelarAgendamento(agendamento.id!!)
-                ).withRel("cancelar")
+                    linkTo(
+                            methodOn(
+                                    AgendamentoController::class.java
+                            ).cancelarAgendamento(agendamento.id!!)
+                    ).withRel("cancelar")
             )
         }
     }
