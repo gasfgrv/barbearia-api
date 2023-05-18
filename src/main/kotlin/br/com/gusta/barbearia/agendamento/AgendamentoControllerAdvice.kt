@@ -23,12 +23,12 @@ class AgendamentoControllerAdvice : ResponseEntityExceptionHandler() {
 
     @ExceptionHandler(AgendamentoException::class)
     @ApiResponse(
-        responseCode = "400",
-        content = [Content(mediaType = "application/problem+json", schema = Schema(implementation = Problem::class))]
+            responseCode = "400",
+            content = [Content(mediaType = "application/problem+json", schema = Schema(implementation = Problem::class))]
     )
     protected fun handleAgendamentoException(
-        ex: AgendamentoException,
-        request: WebRequest
+            ex: AgendamentoException,
+            request: WebRequest
     ): ResponseEntity<Any>? {
         val status = HttpStatus.BAD_REQUEST
 
@@ -39,22 +39,22 @@ class AgendamentoControllerAdvice : ResponseEntityExceptionHandler() {
         extraProperties["statusAgendamento"] = StringUtils.capitalize(ex.statusAgendamento)
 
         return handleExceptionInternal(
-            ex,
-            criarProblema(ex, request, status, extraProperties),
-            headers,
-            status,
-            request
+                ex,
+                montarResposta(ex, request, status, extraProperties),
+                headers,
+                status,
+                request
         )
     }
 
     @ExceptionHandler(AgendamentoExistenteException::class)
     @ApiResponse(
-        responseCode = "400",
-        content = [Content(mediaType = "application/problem+json", schema = Schema(implementation = Problem::class))]
+            responseCode = "400",
+            content = [Content(mediaType = "application/problem+json", schema = Schema(implementation = Problem::class))]
     )
     protected fun handleAgendamentoExistenteException(
-        ex: AgendamentoExistenteException,
-        request: WebRequest
+            ex: AgendamentoExistenteException,
+            request: WebRequest
     ): ResponseEntity<Any>? {
         val status = HttpStatus.BAD_REQUEST
 
@@ -65,22 +65,45 @@ class AgendamentoControllerAdvice : ResponseEntityExceptionHandler() {
         extraProperties["horarioAgendado"] = ex.horario
 
         return handleExceptionInternal(
-            ex,
-            criarProblema(ex, request, status, extraProperties),
-            headers,
-            status,
-            request
+                ex,
+                montarResposta(ex, request, status, extraProperties),
+                headers,
+                status,
+                request
+        )
+    }
+
+    @ExceptionHandler(ReagendamentoException::class)
+    @ApiResponse(
+            responseCode = "400",
+            content = [Content(mediaType = "application/problem+json", schema = Schema(implementation = Problem::class))]
+    )
+    protected fun handleReagendamentoException(
+            ex: ReagendamentoException,
+            request: WebRequest
+    ): ResponseEntity<Any>? {
+        val status = HttpStatus.BAD_REQUEST
+
+        val headers = HttpHeaders()
+        headers[HttpHeaders.CONTENT_TYPE] = mutableListOf(MediaType.APPLICATION_PROBLEM_JSON_VALUE)
+
+        return handleExceptionInternal(
+                ex,
+                montarResposta(ex, request, status),
+                headers,
+                status,
+                request
         )
     }
 
     @ExceptionHandler(AgendamentoNaoEncontradoException::class)
     @ApiResponse(
-        responseCode = "404",
-        content = [Content(mediaType = "application/problem+json", schema = Schema(implementation = Problem::class))]
+            responseCode = "404",
+            content = [Content(mediaType = "application/problem+json", schema = Schema(implementation = Problem::class))]
     )
     protected fun handleAgendamentoNaoEncontradoException(
-        ex: AgendamentoNaoEncontradoException,
-        request: WebRequest
+            ex: AgendamentoNaoEncontradoException,
+            request: WebRequest
     ): ResponseEntity<Any>? {
         val status = HttpStatus.NOT_FOUND
 
@@ -88,22 +111,22 @@ class AgendamentoControllerAdvice : ResponseEntityExceptionHandler() {
         headers[HttpHeaders.CONTENT_TYPE] = mutableListOf(MediaType.APPLICATION_PROBLEM_JSON_VALUE)
 
         return handleExceptionInternal(
-            ex,
-            criarProblema(ex, request, status),
-            headers,
-            status,
-            request
+                ex,
+                montarResposta(ex, request, status),
+                headers,
+                status,
+                request
         )
     }
 
     @ExceptionHandler(Exception::class)
     @ApiResponse(
-        responseCode = "500",
-        content = [Content(mediaType = "application/problem+json", schema = Schema(implementation = Problem::class))]
+            responseCode = "500",
+            content = [Content(mediaType = "application/problem+json", schema = Schema(implementation = Problem::class))]
     )
     protected fun handleGenericException(
-        ex: Exception,
-        request: WebRequest
+            ex: Exception,
+            request: WebRequest
     ): ResponseEntity<Any>? {
         val status = HttpStatus.INTERNAL_SERVER_ERROR
 
@@ -114,29 +137,29 @@ class AgendamentoControllerAdvice : ResponseEntityExceptionHandler() {
         extraProperties["cause"] = ex.cause?.message
 
         return handleExceptionInternal(
-            ex,
-            criarProblema(ex, request, status, extraProperties),
-            headers,
-            status,
-            request
+                ex,
+                montarResposta(ex, request, status, extraProperties),
+                headers,
+                status,
+                request
         )
     }
 
-    private fun criarProblema(
-        ex: Exception,
-        request: WebRequest,
-        status: HttpStatus,
-        extraProperties: MutableMap<String, Any?>? = null
+    private fun montarResposta(
+            ex: Exception,
+            request: WebRequest,
+            status: HttpStatus,
+            extraProperties: MutableMap<String, Any?>? = null
     ): Problem {
         return Problem.create()
-            .withTitle(StringUtils.converterParaSentenceCase(ex::class.simpleName!!))
-            .withDetail(ex.message)
-            .withInstance(URI.create((request as ServletWebRequest).request.requestURI.toString()))
-            .withStatus(status)
-            .withProperties { properties ->
-                properties["timestamp"] = OffsetDateTime.now()
-                extraProperties?.forEach { (key, value) -> properties[key] = value }
-            }
+                .withTitle(StringUtils.converterParaSentenceCase(ex::class.simpleName!!))
+                .withDetail(ex.message)
+                .withInstance(URI.create((request as ServletWebRequest).request.requestURI.toString()))
+                .withStatus(status)
+                .withProperties { properties ->
+                    properties["timestamp"] = OffsetDateTime.now()
+                    extraProperties?.forEach { (key, value) -> properties[key] = value }
+                }
     }
 
 }
