@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class AutenticacaoService(
-        private val authencationManager: AuthenticationManager,
-        private val tokenService: TokenService
+    private val authencationManager: AuthenticationManager,
+    private val tokenService: TokenService
 ) {
 
     fun autenticarUsuario(dadosAutenticacao: DadosAutenticacao): String {

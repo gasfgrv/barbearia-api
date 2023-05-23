@@ -11,14 +11,14 @@ import org.springframework.web.filter.OncePerRequestFilter
 
 @Component
 class SecurityFilter(
-        private val usuarioRepository: UsuarioRepository,
-        private val tokenService: TokenService
+    private val usuarioRepository: UsuarioRepository,
+    private val tokenService: TokenService
 ) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
-            request: HttpServletRequest,
-            response: HttpServletResponse,
-            filterChain: FilterChain
+        request: HttpServletRequest,
+        response: HttpServletResponse,
+        filterChain: FilterChain
     ) {
         val tokenJwt = recuperarToken(request)
 

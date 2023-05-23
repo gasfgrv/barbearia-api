@@ -7,7 +7,10 @@ import org.springframework.data.jpa.repository.Query
 
 interface AgendamentoRepository : JpaRepository<Agendamento, UUID> {
 
-    @Query(value = "select exists(select 1 from agendamento where horario=:horario and barbeiro=:barbeiroId and status in ('AGENDADO', 'CONCLUIDO'))", nativeQuery = true)
+    @Query(
+        value = "select exists(select 1 from agendamento where horario=:horario and barbeiro=:barbeiroId and status in ('AGENDADO', 'CONCLUIDO'))",
+        nativeQuery = true
+    )
     fun existeAgendamentoNoHorarioParaBarbeiro(horario: LocalDateTime, barbeiroId: UUID): Boolean
 
 }

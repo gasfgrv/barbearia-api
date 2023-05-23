@@ -19,12 +19,14 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 class AutenticacaoControllerAdvice : ResponseEntityExceptionHandler() {
 
     @ExceptionHandler(AuthenticationException::class)
-    @ApiResponse(responseCode = "401", content = [
-        Content(mediaType = "application/problem+json", schema = Schema(implementation = Problem::class))
-    ])
+    @ApiResponse(
+        responseCode = "401", content = [
+            Content(mediaType = "application/problem+json", schema = Schema(implementation = Problem::class))
+        ]
+    )
     fun handleAuthenticationException(
-            exception: AuthenticationException,
-            request: WebRequest
+        exception: AuthenticationException,
+        request: WebRequest
     ): ResponseEntity<Any>? {
         val status = HttpStatus.UNAUTHORIZED
 
@@ -32,10 +34,10 @@ class AutenticacaoControllerAdvice : ResponseEntityExceptionHandler() {
         headers[HttpHeaders.CONTENT_TYPE] = listOf(MediaType.APPLICATION_PROBLEM_JSON_VALUE)
 
         val problem = Problem.create()
-                .withTitle("Erro ao autenticar usuário")
-                .withDetail("Confira se as suas credenciais estão corretas")
-                .withStatus(status)
-                .withInstance(URI("/v1/login"))
+            .withTitle("Erro ao autenticar usuário")
+            .withDetail("Confira se as suas credenciais estão corretas")
+            .withStatus(status)
+            .withInstance(URI("/v1/login"))
 
         return handleExceptionInternal(exception, problem, headers, status, request)
     }

@@ -23,33 +23,33 @@ import java.util.UUID
 @Entity
 @Table(name = "agendamento")
 data class Agendamento(
-        @Id
-        @Column(name = "id")
-        @GeneratedValue(strategy = GenerationType.UUID)
-        var id: UUID? = null,
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.UUID)
+    var id: UUID? = null,
 
-        @OneToOne(cascade = [CascadeType.ALL])
-        @JoinColumn(name = "cliente", referencedColumnName = "id")
-        val cliente: Cliente,
+    @OneToOne(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "cliente", referencedColumnName = "id")
+    val cliente: Cliente,
 
-        @ManyToMany(cascade = [CascadeType.ALL])
-        @JoinTable(
-                name = "agendamento_servico",
-                joinColumns = [JoinColumn(name = "agendamento")],
-                inverseJoinColumns = [JoinColumn(name = "servico")]
-        )
-        private val servicos: MutableSet<Servico> = HashSet(),
+    @ManyToMany(cascade = [CascadeType.ALL])
+    @JoinTable(
+        name = "agendamento_servico",
+        joinColumns = [JoinColumn(name = "agendamento")],
+        inverseJoinColumns = [JoinColumn(name = "servico")]
+    )
+    private val servicos: MutableSet<Servico> = HashSet(),
 
-        @ManyToOne
-        @JoinColumn(name = "barbeiro", referencedColumnName = "id")
-        val barbeiro: Barbeiro,
+    @ManyToOne
+    @JoinColumn(name = "barbeiro", referencedColumnName = "id")
+    val barbeiro: Barbeiro,
 
-        @Column(name = "horario")
-        var horario: LocalDateTime,
+    @Column(name = "horario")
+    var horario: LocalDateTime,
 
-        @Enumerated(EnumType.STRING)
-        @Column(name = "status")
-        var status: Status? = null
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    var status: Status? = null
 ) {
     fun adicionarServicos(servicos: List<Servico>) {
         servicos.forEach { servico -> this.servicos.add(servico) }
@@ -66,8 +66,8 @@ data class Agendamento(
     fun cancelarAgendamento() {
         if (Status.AGENDADO != this.status) {
             throw AgendamentoException(
-                    "Não se pode cancelar um agendamento que já esteja concluído ou cancelado",
-                    this.status!!.name
+                "Não se pode cancelar um agendamento que já esteja concluído ou cancelado",
+                this.status!!.name
             )
         }
 
@@ -77,8 +77,8 @@ data class Agendamento(
     fun concluirAgendamento() {
         if (Status.AGENDADO != this.status) {
             throw AgendamentoException(
-                    "Não se pode concluir um agendamento que já esteja concluído ou cancelado",
-                    this.status!!.name
+                "Não se pode concluir um agendamento que já esteja concluído ou cancelado",
+                this.status!!.name
             )
         }
 

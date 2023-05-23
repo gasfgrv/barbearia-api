@@ -23,7 +23,7 @@ class AgendamentoController @Autowired constructor(private val agendamentoServic
     @SecurityRequirement(name = "bearerAuth")
     fun consultarAgendamento(@PathVariable id: UUID): ResponseEntity<AgendamentoDetalhesResponse> {
         return ResponseEntity.ok()
-                .body(AgendamentoDetalhesResponse.paraResposta(agendamentoService.consultarDadosAgendamento(id)))
+            .body(AgendamentoDetalhesResponse.paraResposta(agendamentoService.consultarDadosAgendamento(id)))
     }
 
     @GetMapping("/{id}/cancelar")
@@ -45,8 +45,8 @@ class AgendamentoController @Autowired constructor(private val agendamentoServic
     fun novoAgendamento(@RequestBody @Valid form: NovoAgendamentoForm): ResponseEntity<AgendamentoResponse> {
         val agendamento = AgendamentoResponse.paraResposta(agendamentoService.novoAgendamento(form))
         return ResponseEntity
-                .created(agendamento.getLink("self").get().toUri())
-                .body(agendamento)
+            .created(agendamento.getLink("self").get().toUri())
+            .body(agendamento)
     }
 
     @PutMapping("/remarcar")

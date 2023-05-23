@@ -12,10 +12,10 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class AgendamentoService @Autowired constructor(
-        private val agendamentoRepository: AgendamentoRepository,
-        private val clienteService: ClienteService,
-        private val servicoService: ServicoService,
-        private val barbeiroService: BarbeiroService,
+    private val agendamentoRepository: AgendamentoRepository,
+    private val clienteService: ClienteService,
+    private val servicoService: ServicoService,
+    private val barbeiroService: BarbeiroService,
 ) {
 
     @Transactional
@@ -25,13 +25,13 @@ class AgendamentoService @Autowired constructor(
         }
 
         val agendamento = Agendamento(
-                cliente = clienteService.buscarCliente(novoAgendamento.cliente),
-                barbeiro = barbeiroService.buscarBarbeiro(novoAgendamento.barbeiro),
-                horario = novoAgendamento.horario
+            cliente = clienteService.buscarCliente(novoAgendamento.cliente),
+            barbeiro = barbeiroService.buscarBarbeiro(novoAgendamento.barbeiro),
+            horario = novoAgendamento.horario
         )
 
         agendamento.adicionarServicos(
-                novoAgendamento.servicos.map(servicoService::selecionarServico)
+            novoAgendamento.servicos.map(servicoService::selecionarServico)
         )
         agendamento.agendar()
 
@@ -40,28 +40,28 @@ class AgendamentoService @Autowired constructor(
 
     fun consultarDadosAgendamento(id: UUID): Agendamento {
         return agendamentoRepository.findById(id)
-                .orElseThrow { AgendamentoNaoEncontradoException() }
+            .orElseThrow { AgendamentoNaoEncontradoException() }
     }
 
     fun cancelarAgendamento(id: UUID) {
         agendamentoRepository.findById(id)
-                .ifPresent { agendamento ->
-                    agendamento.cancelarAgendamento()
-                    agendamentoRepository.save(agendamento)
-                }
+            .ifPresent { agendamento ->
+                agendamento.cancelarAgendamento()
+                agendamentoRepository.save(agendamento)
+            }
     }
 
     fun concluirAgendamento(id: UUID) {
         agendamentoRepository.findById(id)
-                .ifPresent { agendamento ->
-                    agendamento.concluirAgendamento()
-                    agendamentoRepository.save(agendamento)
-                }
+            .ifPresent { agendamento ->
+                agendamento.concluirAgendamento()
+                agendamentoRepository.save(agendamento)
+            }
     }
 
     fun alterarAgendamento(alterarAgendamento: AlterarAgendamentoForm): Agendamento {
         val agendamento = agendamentoRepository.findById(alterarAgendamento.agendamento)
-                .orElseThrow(::AgendamentoNaoEncontradoException)
+            .orElseThrow(::AgendamentoNaoEncontradoException)
         agendamento.horario = alterarAgendamento.novoHorario
 
         if (Status.AGENDADO != agendamento.status) {

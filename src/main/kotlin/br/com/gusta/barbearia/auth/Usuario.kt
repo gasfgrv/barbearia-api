@@ -12,12 +12,12 @@ import org.springframework.security.core.userdetails.UserDetails
 @Entity
 @Table(name = "usuario")
 data class Usuario(
-        @Id
-        private val login: String,
-        private val senha: String,
-        @OneToOne(cascade = [CascadeType.ALL])
-        @JoinColumn(name = "perfil", referencedColumnName = "id")
-        private val perfil: Perfil
+    @Id
+    private val login: String,
+    private val senha: String,
+    @OneToOne(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "perfil", referencedColumnName = "id")
+    private val perfil: Perfil
 ) : UserDetails {
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> = mutableListOf(perfil)

@@ -9,24 +9,24 @@ import org.springframework.stereotype.Service
 
 @Service
 class TokenService(
-        @Value("\${api.security.token.secret}")
-        private val secret: String
+    @Value("\${api.security.token.secret}")
+    private val secret: String
 ) {
 
     fun gerarToken(usuario: Usuario): String {
         return JWT.create()
-                .withIssuer("barbearia")
-                .withSubject(usuario.username)
-                .withExpiresAt(getExpiracao())
-                .sign(getAlgoritmo(secret))
+            .withIssuer("barbearia")
+            .withSubject(usuario.username)
+            .withExpiresAt(getExpiracao())
+            .sign(getAlgoritmo(secret))
     }
 
     fun getSubject(token: String): String {
         return JWT.require(getAlgoritmo(secret))
-                .withIssuer("barbearia")
-                .build()
-                .verify(token)
-                .subject
+            .withIssuer("barbearia")
+            .build()
+            .verify(token)
+            .subject
     }
 
     private fun getAlgoritmo(secret: String): Algorithm {
@@ -35,8 +35,8 @@ class TokenService(
 
     private fun getExpiracao(): Instant {
         return OffsetDateTime.now()
-                .plusHours(1)
-                .toInstant()
+            .plusHours(1)
+            .toInstant()
     }
 
 }
