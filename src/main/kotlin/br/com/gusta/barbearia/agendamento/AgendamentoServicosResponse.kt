@@ -22,7 +22,7 @@ data class AgendamentoServicosResponse(
                 servico.duracacao
             )
 
-            resposta.add(linkTo(methodOn(ServicoController::class.java).DetalharServico(servico.id)).withSelfRel())
+            resposta.add(linkTo(methodOn(ServicoController::class.java).detalharServico(servico.id!!)).withSelfRel())
 
             return resposta
         }
