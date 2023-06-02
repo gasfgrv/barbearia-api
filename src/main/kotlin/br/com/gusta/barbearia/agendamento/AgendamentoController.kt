@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/v1/agendamentos")
-@Tag(name = "agendamentos")
+@Tag(name = "Agendamentos")
 class AgendamentoController @Autowired constructor(private val agendamentoService: AgendamentoService) {
 
     @GetMapping("/{id}")

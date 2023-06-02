@@ -1,0 +1,459 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2023-06-02T22:01:51.831Z",
+  "__export_source": "insomnia.desktop.app:v2023.2.2",
+  "resources": [
+    {
+      "_id": "req_10d44cbfeb81468f80f6548c63be75c3",
+      "parentId": "wrk_b90f9863175845ad9896e9405368c30f",
+      "modified": 1685559353296,
+      "created": 1685559169937,
+      "url": "http://localhost:8080/v1/login",
+      "name": "Login - Cliente",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"login\": \"gustavo@email.com\",\n\t\"senha\": \"gusta\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1685559169937,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "wrk_b90f9863175845ad9896e9405368c30f",
+      "parentId": null,
+      "modified": 1685559160390,
+      "created": 1685559160390,
+      "name": "Barbearia",
+      "description": "",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_a568da7da7724b278dc1a296e05be035",
+      "parentId": "wrk_b90f9863175845ad9896e9405368c30f",
+      "modified": 1685559410621,
+      "created": 1685559369840,
+      "url": "http://localhost:8080/v1/login",
+      "name": "Login - Barbeiro",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"login\": \"jorge@barbearia.com\",\n\t\"senha\": \"jorge\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1685530865605,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_a03a9054a8b045dc84a2d8dab86cb27a",
+      "parentId": "wrk_b90f9863175845ad9896e9405368c30f",
+      "modified": 1685559434183,
+      "created": 1685559425675,
+      "url": "http://localhost:8080/v1/login",
+      "name": "Login - Admin",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"login\": \"admin@barbearia.com\",\n\t\"senha\": \"admin\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1685516713439,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_663b0051d4a44967ab6744a54ac9d73f",
+      "parentId": "fld_7f872873918b4ecc98f3206829b13f12",
+      "modified": 1685564416825,
+      "created": 1685563456803,
+      "url": "http://localhost:8080/v1/agendamentos/novo",
+      "name": "Novo Agendamento",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"cliente\": \"6ecd8c99-4036-403d-bf84-cf8400f67836\",\n  \"servicos\": [\n    1\n  ],\n  \"barbeiro\": \"40e6215d-b5c6-4896-987c-f30f3678f608\",\n  \"horario\": \"2023-06-02T10:00\"\n}\n"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{% response 'body', 'req_10d44cbfeb81468f80f6548c63be75c3', 'b64::JC50b2tlbg==::46b', 'always', 60 %}"
+      },
+      "metaSortKey": -1685563456803,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_7f872873918b4ecc98f3206829b13f12",
+      "parentId": "wrk_b90f9863175845ad9896e9405368c30f",
+      "modified": 1685559641423,
+      "created": 1685559610797,
+      "name": "Agendamento",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1685516713389,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_d3992dacd4894bea8f1e4c36859a6ddd",
+      "parentId": "fld_7f872873918b4ecc98f3206829b13f12",
+      "modified": 1685564279828,
+      "created": 1685563701264,
+      "url": "http://localhost:8080/v1/agendamentos/remarcar",
+      "name": "Remarcar Agendamento",
+      "description": "",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"agendamento\": \"0e8d2cd1-c6ee-46a5-abaf-dfdcf964ac07\",\n  \"novoHorario\": \"2023-06-01T10:00\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{% response 'body', 'req_10d44cbfeb81468f80f6548c63be75c3', 'b64::JC50b2tlbg==::46b', 'always', 60 %}"
+      },
+      "metaSortKey": -1685561313370,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_8a7e04305e554e4bb1330f62d9ac372d",
+      "parentId": "fld_7f872873918b4ecc98f3206829b13f12",
+      "modified": 1685564330340,
+      "created": 1685564309738,
+      "url": "http://localhost:8080/v1/agendamentos/0e8d2cd1-c6ee-46a5-abaf-dfdcf964ac07",
+      "name": "Consultar Agendamento",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{% response 'body', 'req_10d44cbfeb81468f80f6548c63be75c3', 'b64::JC50b2tlbg==::46b', 'always', 60 %}"
+      },
+      "metaSortKey": -1685560241653.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_0a91a596e75746e1b2bb162fb052a55c",
+      "parentId": "fld_7f872873918b4ecc98f3206829b13f12",
+      "modified": 1685564393506,
+      "created": 1685564367586,
+      "url": "http://localhost:8080/v1/agendamentos/0e8d2cd1-c6ee-46a5-abaf-dfdcf964ac07/concluir",
+      "name": "Concluir Agendamento",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{% response 'body', 'req_a568da7da7724b278dc1a296e05be035', 'b64::JC50b2tlbg==::46b', 'always', 60 %}"
+      },
+      "metaSortKey": -1685559705795.25,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_36503ddebe1445ad9dd05545b6f52848",
+      "parentId": "fld_7f872873918b4ecc98f3206829b13f12",
+      "modified": 1685564521380,
+      "created": 1685564448781,
+      "url": "http://localhost:8080/v1/agendamentos/31299bec-b93d-4f7f-b5f1-34df5e55938c/cancelar",
+      "name": "Cancelar Agendamento",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{% response 'body', 'req_10d44cbfeb81468f80f6548c63be75c3', 'b64::JC50b2tlbg==::46b', 'always', 60 %}"
+      },
+      "metaSortKey": -1685559437866.125,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_d6554df0340a42b2ac8270d08396b940",
+      "parentId": "fld_9a9022ff088c45ad8e60544a599d6f3f",
+      "modified": 1685742961681,
+      "created": 1685742688749,
+      "url": "http://localhost:8080/v1/servicos/novo",
+      "name": "Novo Serviço",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"string\",\n  \"descricao\": \"string\",\n  \"preco\": \"576,46\",\n  \"duracao\": 30\n}\n"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{% response 'body', 'req_a568da7da7724b278dc1a296e05be035', 'b64::JC50b2tlbg==::46b', 'always', 60 %}"
+      },
+      "metaSortKey": -1685742688749,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_9a9022ff088c45ad8e60544a599d6f3f",
+      "parentId": "wrk_b90f9863175845ad9896e9405368c30f",
+      "modified": 1685559644523,
+      "created": 1685559634585,
+      "name": "Serviço",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1685516713339,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_0d67ba7fb7f940128e7864071aa9473a",
+      "parentId": "fld_9a9022ff088c45ad8e60544a599d6f3f",
+      "modified": 1685743009531,
+      "created": 1685742970863,
+      "url": "http://localhost:8080/v1/servicos/alterar",
+      "name": "Alterar Serviço",
+      "description": "",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"id\": 2,\n  \"nome\": \"string\",\n  \"descricao\": \"string\",\n  \"preco\": \"93,23\",\n  \"duracao\": 0\n}\n"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{% response 'body', 'req_a568da7da7724b278dc1a296e05be035', 'b64::JC50b2tlbg==::46b', 'always', 60 %}"
+      },
+      "metaSortKey": -1685653072776,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_a185f56a602b4214a66c74281786afd9",
+      "parentId": "fld_9a9022ff088c45ad8e60544a599d6f3f",
+      "modified": 1685743162672,
+      "created": 1685743047254,
+      "url": "http://localhost:8080/v1/servicos",
+      "name": "Listar Serviços",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{% response 'body', 'req_a568da7da7724b278dc1a296e05be035', 'b64::JC50b2tlbg==::46b', 'always', 60 %}"
+      },
+      "metaSortKey": -1685653072726,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_04cc6e0e8fa447c298309c28475f8ef7",
+      "parentId": "fld_9a9022ff088c45ad8e60544a599d6f3f",
+      "modified": 1685743174322,
+      "created": 1685743154513,
+      "url": "http://localhost:8080/v1/servicos/2",
+      "name": "Consultar Serviço",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{% response 'body', 'req_a568da7da7724b278dc1a296e05be035', 'b64::JC50b2tlbg==::46b', 'always', 60 %}"
+      },
+      "metaSortKey": -1685608264764.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_aca4f3832da84ce8af6734f7e98e7c6a",
+      "parentId": "fld_9a9022ff088c45ad8e60544a599d6f3f",
+      "modified": 1685743212462,
+      "created": 1685743202523,
+      "url": "http://localhost:8080/v1/servicos/2/desativar",
+      "name": "Desativar Serviço",
+      "description": "",
+      "method": "DELETE",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{% response 'body', 'req_a568da7da7724b278dc1a296e05be035', 'b64::JC50b2tlbg==::46b', 'always', 60 %}"
+      },
+      "metaSortKey": -1685585860783.75,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "env_a5621c3a7132b5101543d1b5e3cdc08a6175af9e",
+      "parentId": "wrk_b90f9863175845ad9896e9405368c30f",
+      "modified": 1685559160400,
+      "created": 1685559160400,
+      "name": "Base Environment",
+      "data": {},
+      "dataPropertyOrder": null,
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1685559160400,
+      "_type": "environment"
+    },
+    {
+      "_id": "jar_a5621c3a7132b5101543d1b5e3cdc08a6175af9e",
+      "parentId": "wrk_b90f9863175845ad9896e9405368c30f",
+      "modified": 1685559160402,
+      "created": 1685559160402,
+      "name": "Default Jar",
+      "cookies": [],
+      "_type": "cookie_jar"
+    },
+    {
+      "_id": "spc_ef0c63a2afe84d22ae8573d586c3c89a",
+      "parentId": "wrk_b90f9863175845ad9896e9405368c30f",
+      "modified": 1685559160391,
+      "created": 1685559160391,
+      "fileName": "Barbearia",
+      "contents": "",
+      "contentType": "yaml",
+      "_type": "api_spec"
+    }
+  ]
+}
