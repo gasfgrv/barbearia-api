@@ -13,8 +13,8 @@ import org.springframework.security.core.userdetails.UserDetails
 @Table(name = "usuario")
 data class Usuario(
     @Id
-    private val login: String,
-    private val senha: String,
+    val login: String,
+    var senha: String,
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "perfil", referencedColumnName = "id")
     private val perfil: Perfil
