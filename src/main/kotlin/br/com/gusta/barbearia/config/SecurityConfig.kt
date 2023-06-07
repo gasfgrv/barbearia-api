@@ -36,6 +36,8 @@ class SecurityConfig(private val securityFilter: SecurityFilter) {
             requests.requestMatchers(HttpMethod.PUT, "/v1/servicos/alterar").hasAnyAuthority("BARBEIRO", "ADMIN")
             requests.requestMatchers(HttpMethod.DELETE, "/v1/servicos/{id}/desativar").hasAnyAuthority("BARBEIRO", "ADMIN")
             requests.requestMatchers(HttpMethod.POST, "/v1/clientes/novo").permitAll()
+            requests.requestMatchers(HttpMethod.PUT, "/v1/clientes/alterar").hasRole("CLIENTE")
+            requests.requestMatchers(HttpMethod.POST, "/v1/clientes/{id}/detalhes").hasRole("CLIENTE")
             requests.requestMatchers(HttpMethod.POST, "/v1/barbeiros/novo").permitAll()
             requests.anyRequest().authenticated()
         }
