@@ -5,7 +5,7 @@ spring:
     username: postgres
     driver-class-name: org.postgresql.Driver
   jpa:
-    database: POSTGRESQL
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 api:
   security:
