@@ -18,7 +18,7 @@ data class AgendamentoDetalhesResponse(
     companion object Mapper {
         fun paraResposta(agendamento: Agendamento): AgendamentoDetalhesResponse {
             val resposta = AgendamentoDetalhesResponse(
-                agendamento.cliente.nome,
+                StringUtils.decodeDeBase64(agendamento.cliente.nome),
                 agendamento.obterServicos().map(AgendamentoServicosResponse.Mapper::paraResposta),
                 agendamento.barbeiro.nome,
                 DataHoraUtils.formatar(agendamento.horario),
